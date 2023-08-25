@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import classes from './NewTodo.module.css';
 
 // 직접만든 props를 사용해야한다면, 제네릭 타입 이용 (함수타입 정의 onAddTodo 함수타입이어야 한다는 것을 알고 () => 여기에 함수의 형태를 정의 리턴할게 없으므로 void)
 // 그러나, onAddTodo 함수에는 인수 즉, 매개변수가 있어야함.
@@ -24,7 +25,7 @@ const NewTodo: React.FC<{ onAddTodo: (text: string) => void }> = (props) => {
   };
 
   return (
-    <form onSubmit={submitHandler}>
+    <form className={classes.form} onSubmit={submitHandler}>
       <label htmlFor='text'>Todo Text</label>
       <input type='text' id='text' ref={todoTextInputRef} />
       <button>Add Todo</button>
