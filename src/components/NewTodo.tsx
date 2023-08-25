@@ -1,9 +1,11 @@
-import { useRef } from 'react';
+import { useContext, useRef } from 'react';
 import classes from './NewTodo.module.css';
+import { TodosContext } from '../store/todos-context';
 
 // 직접만든 props를 사용해야한다면, 제네릭 타입 이용 (함수타입 정의 onAddTodo 함수타입이어야 한다는 것을 알고 () => 여기에 함수의 형태를 정의 리턴할게 없으므로 void)
 // 그러나, onAddTodo 함수에는 인수 즉, 매개변수가 있어야함.
-const NewTodo: React.FC<{ onAddTodo: (text: string) => void }> = (props) => {
+const NewTodo: React.FC = () => {
+  const todosCtx = useContext(TodosContext);
   // 사용자 입력 방식 (useState, useRef (한번에 모든 입력 가져오기))
   // input 요소의 타입은 HTMLInputElement, Btn은 HTMLButtonElement
   // ()안에 default value 설정 (시작 값은 null) 여기서 생성된 레퍼런스는 나중에 htmINput element랑 연결,
@@ -21,7 +23,7 @@ const NewTodo: React.FC<{ onAddTodo: (text: string) => void }> = (props) => {
     }
 
     // 함수 포인터를 상위로 전달하는 방법(onAddTodo에는 함수를 값으로 받아옴, 함수를 받아서 실행할 수 있게)
-    props.onAddTodo(enteredText);
+    todosCtx.addTodo(enteredText);
   };
 
   return (

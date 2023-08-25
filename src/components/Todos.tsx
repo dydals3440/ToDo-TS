@@ -1,20 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
-import Todo from '../models/todo';
 import TodoItem from './TodoItem';
+import { TodosContext } from '../store/todos-context';
 
 import classes from './Todos.module.css';
 // React.FC '@types/react' 패키지에 정의된 내용(Functional Components)
-const Todos: React.FC<{ items: Todo[]; onRemoveTodo: (id: string) => void }> = (
-  props
-) => {
+const Todos: React.FC = () => {
+  const todosCtx = useContext(TodosContext);
+  console.log(todosCtx);
   return (
     <ul className={classes.todos}>
-      {props.items.map((item) => (
+      {todosCtx.items.map((item) => (
         <TodoItem
           key={item.id}
           text={item.text}
-          onRemoveTodo={props.onRemoveTodo.bind(null, item.id)}
+          onRemoveTodo={todosCtx.removeTodo.bind(null, item.id)}
         />
       ))}
     </ul>
