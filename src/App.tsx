@@ -10,15 +10,22 @@ function App() {
   const addTodoHandler = (todoText: string) => {
     const newTodo = new Todo(todoText);
     setTodos((prevTodos) => {
-      // concat은 새로운 배열을 반환함.
+      // concat은 새로운 배열을 반환함. 새로운 stat로 사용
       return prevTodos.concat(newTodo);
     });
   };
+
+  const removeTodoHandler = (todoId: string) => {
+    setTodos((prevTodos) => {
+      return prevTodos.filter((todo) => todo.id !== todoId);
+    });
+  };
+
   return (
     <div>
       {/* addTodoHandler 포인터를 newTodo에 전달해야함! */}
       <NewTodo onAddTodo={addTodoHandler} />
-      <Todos items={todos} />
+      <Todos items={todos} onRemoveTodo={removeTodoHandler} />
     </div>
   );
 }
